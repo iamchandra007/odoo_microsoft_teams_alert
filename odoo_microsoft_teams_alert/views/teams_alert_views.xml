@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Root Menu Item for Teams Alerts -->
+    <menuitem id="menu_teams_alert_root" 
+              name="Teams Alerts" 
+              sequence="10"/>
+
+    <!-- Tree View Definition -->
+    <record id="view_teams_alert_tree" model="ir.ui.view">
+        <field name="name">teams.alert.tree</field>
+        <field name="model">teams.alert</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="trigger_events"/>
+                <field name="message_template"/>
+                <field name="state" widget="statusbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View Definition -->
+    <record id="view_teams_alert_form" model="ir.ui.view">
+        <field name="name">teams.alert.form</field>
+        <field name="model">teams.alert</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                    <button name="action_draft" type="object" string="Draft" class="oe_highlight"/>
+                    <button name="action_confirm" type="object" string="Confirm" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="model_id" required="1"/>
+                        <field name="trigger_events" widget="many2many_tags" options="{'no_create_edit': True, 'no_create': True}"/>
+                        <field name="message_template"/>
+                        <field name="custom_condition" placeholder="E.g., record.field_name == 'value'" help="Specify a custom condition here. Example: record.field_name == 'value'"/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Webhook URLs">
+                            <field name="webhook_urls">
+                                <tree editable="bottom">
+                                    <field name="url"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Search View Definition -->
+    <record id="view_teams_alert_search" model="ir.ui.view">
+        <field name="name">teams.alert.search</field>
+        <field name="model">teams.alert</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model_id"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action to open the Teams Alerts view -->
+    <record id="action_teams_alert" model="ir.actions.act_window">
+        <field name="name">Teams Alerts</field>
+        <field name="res_model">teams.alert</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_teams_alert_tree"/>
+        <field name="search_view_id" ref="view_teams_alert_search"/>
+    </record>
+
+    <!-- Submenu under Teams Alerts -->
+    <menuitem id="menu_teams_alert"
+              name="Alerts"
+              parent="menu_teams_alert_root"
+              action="action_teams_alert"
+              sequence="1"/>
+</odoo>

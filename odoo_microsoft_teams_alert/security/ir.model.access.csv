@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trigger_event,access_trigger_event,model_trigger_event,base.group_user,1,1,1,1
+access_teams_alert,access_teams_alert,model_teams_alert,base.group_user,1,1,1,1
+access_teams_alert_webhook,access_teams_alert_webhook,model_teams_alert_webhook,base.group_user,1,1,1,1

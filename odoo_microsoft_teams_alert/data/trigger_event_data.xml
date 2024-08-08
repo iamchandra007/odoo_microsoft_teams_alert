@@ -1,0 +1,21 @@
+<odoo>
+    <record id="trigger_event_create" model="trigger.event">
+        <field name="name">On Create</field>
+    </record>
+    
+    <record id="trigger_event_write" model="trigger.event">
+        <field name="name">On Update</field>
+    </record>
+    
+    <record id="trigger_event_delete" model="trigger.event">
+        <field name="name">On Delete</field>
+    </record>
+    
+    <record id="trigger_event_exception" model="trigger.event">
+        <field name="name">On Exception</field>
+    </record>
+    
+    <record id="trigger_event_custom" model="trigger.event">
+        <field name="name">Custom Condition</field>
+    </record>
+</odoo>
